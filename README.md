@@ -41,6 +41,6 @@ Features HTTPS via [Caddy](https://caddyserver.com), security headers, and clean
 ### 1. Clone and build the stack
 
 ```bash
-git clone https://github.com/yourusername/go-link-shortener.git
-cd go-link-shortener
+git clone https://github.com/HLMelton/Dimbus.git
+cd dimbus
 docker-compose up --build
