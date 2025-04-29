@@ -80,7 +80,7 @@ func shortenHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	shortURL := fmt.Sprintf("https://yourdomain.com/%s", code)
+	shortURL := fmt.Sprintf("https://dimbus.link/%s", code)
 	fmt.Fprintf(w, "Shortened URL: %s\n", shortURL)
 }
 
