@@ -1,0 +1,3 @@
+dimbus.link {
+    reverse_proxy dimbus:8080
+}
