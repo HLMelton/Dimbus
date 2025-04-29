@@ -25,7 +25,6 @@ Features HTTPS via [Caddy](https://caddyserver.com), security headers, and clean
 - **PostgreSQL**: Stores shortened URLs
 - **Caddy**: Handles HTTPS and reverse proxying
 - **Docker Compose**: Simplifies development and deployment
-
 ---
 
 ## 📦 Running the Project (Local Dev)
@@ -44,3 +43,8 @@ Features HTTPS via [Caddy](https://caddyserver.com), security headers, and clean
 git clone https://github.com/HLMelton/Dimbus.git
 cd dimbus
 docker-compose up --build
+
+```
+
+
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=2fe7735e3150&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
