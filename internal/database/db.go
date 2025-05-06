@@ -40,7 +40,29 @@ func New() (*DB, error) {
 		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
+	// Initialize schema
+	if err := initializeSchema(db); err != nil {
+		return nil, fmt.Errorf("failed to initialize schema: %w", err)
+	}
+
 	return &DB{db}, nil
+}
+
+func initializeSchema(db *sql.DB) error {
+	schema := `
+	CREATE TABLE IF NOT EXISTS short_links (
+		id SERIAL PRIMARY KEY,
+		code VARCHAR(10) NOT NULL UNIQUE,
+		url TEXT NOT NULL,
+		created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+		last_accessed TIMESTAMP WITH TIME ZONE
+	);
+
+	CREATE INDEX IF NOT EXISTS idx_short_links_code ON short_links(code);
+	`
+
+	_, err := db.Exec(schema)
+	return err
 }
 
 func (db *DB) Close() error {
