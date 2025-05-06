@@ -180,3 +180,70 @@ docker-compose up --build
 
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=2fe7735e3150&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+
+## 🚀 Deployment to Digital Ocean
+
+### Prerequisites
+1. A Digital Ocean account
+2. A domain name pointing to your Digital Ocean droplet
+3. Basic knowledge of SSH and command line
+
+### Steps
+
+1. Create a new Ubuntu droplet on Digital Ocean:
+   - Choose Ubuntu 22.04 LTS
+   - Select Basic plan (minimum 1GB RAM)
+   - Choose a datacenter region close to your users
+   - Add your SSH key
+   - Choose a hostname
+
+2. Update your domain's DNS:
+   - Add an A record pointing to your droplet's IP address
+   - Wait for DNS propagation (can take up to 24 hours)
+
+3. SSH into your droplet:
+   ```bash
+   ssh root@your-droplet-ip
+   ```
+
+4. Set environment variables:
+   ```bash
+   export DOMAIN=your-domain.com
+   export CADDY_EMAIL=your@email.com
+   ```
+
+5. Download and run the deployment script:
+   ```bash
+   curl -O https://raw.githubusercontent.com/hlmelton/dimbus/main/deploy.sh
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+6. Monitor the deployment:
+   ```bash
+   docker-compose logs -f
+   ```
+
+### Post-Deployment
+
+1. Your application will be available at `https://your-domain.com`
+2. SSL certificates will be automatically provisioned by Caddy
+3. The database is persisted in a Docker volume
+4. Logs can be viewed using `docker-compose logs`
+
+### Backup
+
+To backup the database:
+```bash
+docker-compose exec db pg_dump -U dimbus_user dimbus > backup.sql
+```
+
+### Updating
+
+To update the application:
+```bash
+cd /opt/dimbus
+git pull
+docker-compose build
+docker-compose up -d
+```
