@@ -46,27 +46,44 @@ Before you begin, ensure you have the following installed:
 
 ### Local Development
 
-1. Install dependencies:
+1. Create a `.env` file with the following content:
+   ```env
+   POSTGRES_USER=dimbus_user
+   POSTGRES_PASSWORD=yourpassword
+   POSTGRES_DB=dimbus
+   DATABASE_URL=postgres://dimbus_user:yourpassword@localhost:5432/dimbus?sslmode=disable
+   ```
+
+2. Install dependencies:
    ```bash
    go mod download
    ```
 
-2. Generate templ files:
+3. Generate templ files:
    ```bash
    templ generate
    ```
 
-3. Start PostgreSQL:
+4. Start PostgreSQL:
    ```bash
-   docker-compose up db
+   docker-compose up db -d
    ```
 
-4. Run the application:
+5. Set environment variables (PowerShell):
+   ```powershell
+   $env:DATABASE_URL="postgres://dimbus_user:yourpassword@localhost:5432/dimbus?sslmode=disable"
+   ```
+   Or for Bash:
+   ```bash
+   export DATABASE_URL="postgres://dimbus_user:yourpassword@localhost:5432/dimbus?sslmode=disable"
+   ```
+
+6. Run the application:
    ```bash
    go run ./cmd/server
    ```
 
-5. Access the application at [http://localhost:8080](http://localhost:8080)
+7. Access the application at [http://localhost:8080](http://localhost:8080)
 
 ## 🔧 Configuration
 
