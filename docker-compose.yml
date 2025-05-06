@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:15
@@ -8,8 +6,11 @@ services:
       POSTGRES_DB: dimbus
       POSTGRES_USER: dimbus_user
       POSTGRES_PASSWORD: yourpassword
+    ports:
+      - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+      - ./database/migrations:/docker-entrypoint-initdb.d
     networks:
       - internal
 
@@ -18,7 +19,9 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://dimbus_user:yourpassword@db:5432/dimbus
+      - DATABASE_URL=postgres://dimbus_user:yourpassword@db:5432/dimbus?sslmode=disable
+    ports:
+      - "8080:8080"
     networks:
       - internal
 
@@ -43,4 +46,4 @@ volumes:
 
 networks:
   internal:
-  public:
+  public: 
